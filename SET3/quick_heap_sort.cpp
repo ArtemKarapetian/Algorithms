@@ -6,10 +6,10 @@
 #include <stack>
 
 void heapify(std::vector<int>& nums, std::size_t current, std::size_t left, std::size_t right) {
-    if (current * 2 - left + 1 > right) {
+    if (current * 2 - left + 1 >= right) {
         return;
     }
-    if (current * 2 - left + 2 > right) {
+    if (current * 2 - left + 2 >= right) {
         std::size_t child = current * 2 - left + 1;
         if (nums[child] > nums[current]) {
             std::swap(nums[child], nums[current]);
@@ -35,7 +35,7 @@ void heapify(std::vector<int>& nums, std::size_t current, std::size_t left, std:
 }
 
 void build_heap(std::vector<int>& nums, std::size_t left, std::size_t right) {
-    std::size_t i = left + (right - left) / 2;
+    std::size_t i = left + (right - left) / 2 + 1;
     while (i > left) {
         i--;
         heapify(nums, i, left, right);
@@ -49,9 +49,9 @@ void heap_sort(std::vector<int>& nums, std::size_t left, std::size_t right) {
 
     build_heap(nums, left, right);
 
-    for (std::size_t i = right; i > left; --i) {
+    for (std::size_t i = right - 1; i > left; --i) {
         std::swap(nums[left], nums[i]);
-        heapify(nums, left, left, i - 1);
+        heapify(nums, left, left, i);
     }
 }
 
@@ -79,7 +79,7 @@ void quick_heap_sort(std::vector<int>& nums, int change) {
         partitions.pop();
 
         if (current.second - current.first <= change) {
-            heap_sort(nums, current.first, current.second);
+            heap_sort(nums, current.first, current.second + 1);
             continue;
         }
 
