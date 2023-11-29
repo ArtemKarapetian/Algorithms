@@ -106,30 +106,31 @@ void test_speed(const std::vector<int>& array) {
     std::ofstream latex_coordinates_percent_change("A3_coordinates_percent_change.txt", std::ofstream::app);
     latex_coordinates_percent_change << std::setprecision(15) << std::endl;
 
-    long long previous_millisec = 0;
-    long long current_millisec = 0;
+    std::vector<long long> raw_data(62);
 
     for (int current = 0; current <= 300; current += 5) {
 
-        std::vector<int> current_array(array.begin(), array.end());
-        auto start = std::chrono::high_resolution_clock::now();
-        quick_heap_sort(current_array, current);
-        auto elapsed = std::chrono::high_resolution_clock::now() - start;
-        current_millisec = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-        
-        long long change = current_millisec - previous_millisec;
-        double change_percent = static_cast<double>(change) / previous_millisec * 100;
-        bool is_positive_change = current_millisec > previous_millisec;
+        for (int i = 0; i < 3; ++i) {
+            std::vector<int> current_array(array.begin(), array.end());
+            auto start = std::chrono::high_resolution_clock::now();
+            quick_heap_sort(current_array, current);
+            auto elapsed = std::chrono::high_resolution_clock::now() - start;
+            long long current_millisec = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+            raw_data[current / 5 + 1] += current_millisec;
+        }
 
-        std::cout << current << " " << current_millisec 
+        raw_data[current / 5 + 1] /= 3;
+        long long change = raw_data[current / 5 + 1] - raw_data[current / 5];
+        double change_percent = static_cast<double>(change) / raw_data[current / 5] * 100;
+        bool is_positive_change = change >= 0;
+
+        std::cout << current << " " << raw_data[current / 5 + 1] 
         << (is_positive_change ? " +" : " ") << change 
         << (is_positive_change ? " +" : " ") << change_percent
         << "%" << std::endl;
 
-        latex_raw_data << "(" << current << "," << current_millisec << ") ";
+        latex_raw_data << "(" << current << "," << raw_data[current / 5 + 1] << ") ";
         latex_coordinates_change << "(" << current << "," << change << ") ";
         latex_coordinates_percent_change << "(" << current << "," << change_percent << ") ";
-        
-        previous_millisec = current_millisec;
     }
 }

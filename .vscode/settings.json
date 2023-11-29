@@ -62,6 +62,11 @@
         "queue": "cpp",
         "stack": "cpp",
         "string_view": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "__errc": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "sstream": "cpp",
+        "system_error": "cpp"
     }
 }

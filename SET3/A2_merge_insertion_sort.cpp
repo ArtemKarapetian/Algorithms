@@ -13,6 +13,8 @@ int main() {
     std::cout << "Random vector change:" << std::endl;
     test_speed(random_vector);
 
+    test_speed(random_vector);
+
     std::vector<int> reversed_vector = make_reversed_array(200000);
 
     std::cout << std::endl << std::endl << "Reversed vector change:" << std::endl;
