@@ -67,6 +67,7 @@
         "charconv": "cpp",
         "chrono": "cpp",
         "sstream": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "iomanip": "cpp"
     }
 }

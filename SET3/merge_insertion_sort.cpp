@@ -62,41 +62,33 @@ void print_time_combined(std::vector<int>& vector, std::string print, const int&
     std::cout << print << millisec << ", ";
 }
 
-void test_speed(const std::vector<int>& array) {
-    std::ofstream latex_raw_data("A2_raw_data.txt", std::ofstream::app);
-    latex_raw_data << std::endl;
+    void test_speed(const std::vector<int>& array, std::string text) {
+        std::ofstream latex_raw_data("A2_raw_data.txt", std::ofstream::app);
+        latex_raw_data << std::endl << text;
+        std::vector<int> change_points{0, 5, 10, 20, 50, 100};
 
-    std::ofstream latex_coordinates_change("A2_coordinates_change.txt", std::ofstream::app);
-    latex_coordinates_change << std::endl;
+        for (const int change_point : change_points) {
+            latex_raw_data << std::endl << std::endl << change_point << std::endl;
+            
+            for (int size = 500; size <= array.size(); 
+            size >= 5000 && size < array.size() ? 
+            size + 2000 > array.size() ? size = array.size() : size = size + 2000 : 
+            size += 100) {
 
-    std::ofstream latex_coordinates_percent_change("A2_coordinates_percent_change.txt", std::ofstream::app);
-    latex_coordinates_percent_change << std::setprecision(15) << std::endl;
+                long long raw_data = 0;
 
-    std::vector<long long> raw_data(62);
+                for (int i = 0; i < 3; ++i) {
+                    std::vector<int> current_array(array.begin(), array.begin() + size);
+                    auto start = std::chrono::high_resolution_clock::now();
+                    combined_sort(current_array, change_point);
+                    auto elapsed = std::chrono::high_resolution_clock::now() - start;
+                    long long current_millisec = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    raw_data += current_millisec;
+                }
 
-    for (int current = 0; current <= 300; current += 5) {
-
-        for (int i = 0; i < 3; ++i) {
-            std::vector<int> current_array(array.begin(), array.end());
-            auto start = std::chrono::high_resolution_clock::now();
-            combined_sort(current_array, current);
-            auto elapsed = std::chrono::high_resolution_clock::now() - start;
-            long long current_millisec = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-            raw_data[current / 5 + 1] += current_millisec;
+                raw_data /= 3;
+                std::cout << size << " " << raw_data << std::endl;
+                latex_raw_data << "(" << size << "," << raw_data << ") ";
+            }
         }
-
-        raw_data[current / 5 + 1] /= 3;
-        long long change = raw_data[current / 5 + 1] - raw_data[current / 5];
-        double change_percent = static_cast<double>(change) / raw_data[current / 5] * 100;
-        bool is_positive_change = change >= 0;
-
-        std::cout << current << " " << raw_data[current / 5 + 1] 
-        << (is_positive_change ? " +" : " ") << change 
-        << (is_positive_change ? " +" : " ") << change_percent
-        << "%" << std::endl;
-
-        latex_raw_data << "(" << current << "," << raw_data[current / 5 + 1] << ") ";
-        latex_coordinates_change << "(" << current << "," << change << ") ";
-        latex_coordinates_percent_change << "(" << current << "," << change_percent << ") ";
     }
-}
