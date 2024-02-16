@@ -1,0 +1,32 @@
+Test 1
+collizii (i don't know how to translate this)
+Linear: 1.345
+Square: 1.26
+Cube: 1.3325
+
+claster info
+Linear: number of clusters 146, avg size of cluster 5.47945
+Square: number of clusters 162, avg size of cluster 4.93827
+Cube: number of clusters 163, avg size of cluster 4.90798
+
+Test 2
+collizii (i don't know how to translate this)
+Linear: 1.22625
+Square: 1.24
+Cube: 1.19375
+
+claster info
+Linear: number of clusters 151, avg size of cluster 5.29801
+Square: number of clusters 163, avg size of cluster 4.90798
+Cube: number of clusters 167, avg size of cluster 4.7485
+
+Test 3
+collizii (i don't know how to translate this)
+Linear: 1.25125
+Square: 1.28
+Cube: 1.22125
+
+claster info
+Linear: number of clusters 142, avg size of cluster 5.6338
+Square: number of clusters 159, avg size of cluster 5.01258
+Cube: number of clusters 162, avg size of cluster 4.88889
