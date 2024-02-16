@@ -54,12 +54,10 @@ std::vector<std::string> sameHashedStrings(std::string s, int number) {
 int main() {
     std::cout << "Write the word you want to get the same hash strings for:" << std::endl;
     std::string line;
-    // std::cin >> line;
+    std::cin >> line;
     std::cout << "Write the number of same hash strings you want to get:" << std::endl;
     int number_of_same_hashed_strings;
-    // std::cin >> number_of_same_hashed_strings;
-    line = "abcdef";
-    number_of_same_hashed_strings = 2000;
+    std::cin >> number_of_same_hashed_strings;
     std::vector<std::string> result;
     result = sameHashedStrings(line, number_of_same_hashed_strings);
     std::sort(result.begin(), result.end());
