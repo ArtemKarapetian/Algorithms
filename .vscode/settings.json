@@ -68,6 +68,9 @@
         "chrono": "cpp",
         "sstream": "cpp",
         "system_error": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "__mutex_base": "cpp",
+        "__string": "cpp",
+        "fstream": "cpp"
     }
 }
